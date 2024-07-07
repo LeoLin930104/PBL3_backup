@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>ShrineSeeker - Software Requirement Specification</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Bootstrap 4 Template For Software Startups">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css">
+
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+</head> 
+
+<body class="docs-page">    
+    <header class="header fixed-top">	    
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+					<button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+	                    <span></span>
+	                    <span></span>
+	                    <span></span>
+	                </button>
+	                <div class="site-logo"><a class="navbar-brand" href="index.html"><img width="30px" class="logo-icon me-2" src="assets/images/torii-gate.svg" alt="logo"><span class="logo-text">Shrine<span class="text-alt">Seeker</span></span></a></div>    
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+	                <div class="top-search-box d-none d-lg-flex">
+		                <form class="search-form" onsubmit="return false;">
+				            <input id = 'searchText' type="text" placeholder="Search the docs..." name="search" class="form-control search-input" onkeydown="handleKeyPress(event)">
+				            <button type="submit" class="btn search-btn" value="Search" onclick="handleButtonPress()"><i class="fas fa-search"></i></button>
+							<script>
+								function handleButtonPress(){
+									var currentSearchText = document.getElementById('searchText').value.trim();
+									searchText(currentSearchText.toLowerCase());
+								}
+								// Function to handle key press event and trigger search on Enter key
+								function handleKeyPress(event) { 
+									var keyCode = event.keyCode || event.which;
+									var validKeyCodes = [8, 13]; // Backspace (8) and Enter (13)
+									
+									// Check if the key pressed is a character or a valid key
+									if ((keyCode >= 65 && keyCode <= 90) || validKeyCodes.includes(keyCode)) {
+										var currentSearchText = document.getElementById('searchText').value.trim();
+										var keyPressed = event.key;
+						
+										// Handle Backspace key press
+										if (keyCode === 8) {
+											// Remove the last character from the search text
+											if(currentSearchText == ''){
+												
+											} else {
+												currentSearchText = currentSearchText.slice(0, -1);
+											}
+										} else if (keyCode === 13) {
+											// If Enter is pressed, trigger search
+											searchText();
+											return;
+										} else {
+											// Append the pressed key to the current search text
+											currentSearchText += keyPressed;
+										}
+						
+										// Trigger the search
+										searchText(currentSearchText.toLowerCase());
+									}
+								}
+						
+								// Function to search for text within the website content and display search results
+								function searchText(text) {
+									var searchText = text
+									console.log(searchText)
+									var resultsContainer = document.getElementById('searchResults');
+									resultsContainer.innerHTML = ''; // Clear previous search results
+									console.log(searchText);
+									if (searchText === '') {
+										document.getElementById('content').style.display = '';
+										document.getElementById('resultContainer').style.display = 'none';
+										return; // Do nothing if search text is empty
+									}
+									var searchableElements = document.querySelectorAll('section'); // Add more elements as needed
+
+									var resultsFound = false;
+								
+									// Iterate over each searchable element
+									searchableElements.forEach(function(element) {
+									var content = element.textContent.trim().toLowerCase(); // Get the text content of the element
+								
+										// Check if the element's content contains the desired text
+										if (content.includes(searchText)) {
+											// Clone the parent element and its content
+											var ElementClone = element.cloneNode(true);
+											
+											// Remove any existing ID to avoid duplication
+											ElementClone.removeAttribute('id');
+											var regex = new RegExp(searchText, 'gi');
+											ElementClone.innerHTML = ElementClone.textContent.replace(regex, '<span style = "background-color: yellow;">$&</span>');
+											
+											
+											// Append the cloned parent element to the results container
+											resultsContainer.appendChild(ElementClone);
+											resultsFound = true;
+										}
+									});
+								
+									// If no results found, display a message
+									if (!resultsFound) {
+										var noResultsElement = document.createElement('p');
+										noResultsElement.textContent = 'No results found.';
+										resultsContainer.appendChild(noResultsElement);
+									}
+
+									document.getElementById('content').style.display = 'none';
+									document.getElementById('resultContainer').style.display = '';
+
+								}
+							</script>
+				        </form>
+	                </div>
+	
+					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+		            </ul><!--//social-list-->
+		            <a href="https://github.com/LeoLin930104/PBL3" class="btn btn-primary d-none d-lg-flex">Github</a>
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    
+    
+    <div class="docs-wrapper">
+	    <div id="docs-sidebar" class="docs-sidebar">
+		    <div class="top-search-box d-lg-none p-3">
+                <form class="search-form">
+		            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+		            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+		        </form>
+            </div>
+		    <nav id="docs-nav" class="docs-nav navbar">
+			    <ul class="section-items list-unstyled nav flex-column pb-3">
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-0"><span class="theme-icon-holder me-2"><i class="fas fa-clipboard-list"></i></span>Requirement Specification</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-clipboard-list"></i></span>1. Preface</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">1.1 Version History</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">1.2 Intended Audience and Reading Suggestions</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3">1.3 Document Conventions</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-2"><span class="theme-icon-holder me-2"><i class="fas fa-clipboard-list"></i></span>2. Introduction</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-1">2.1 Product Scope</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-2">2.2 Product Perspective</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-3">2.3 Use Case Diagram</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-3"><span class="theme-icon-holder me-2"><i class="fas fa-clipboard-list"></i></span>3. Glossary</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-4"><span class="theme-icon-holder me-2"><i class="fas fa-clipboard-list"></i></span>4. User Requirement</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-4-1">4.1 Functional Requirements</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-4-2">4.2 Non-functional Requirements</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-5"><span class="theme-icon-holder me-2"><i class="fas fa-clipboard-list"></i></span>5. System Architecture</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-6"><span class="theme-icon-holder me-2"><i class="fas fa-clipboard-list"></i></span>6. System Requirement</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-6-1">6.1 Functional Requirements</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-6-2">6.2 Non-functional Requirements</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-7"><span class="theme-icon-holder me-2"><i class="fas fa-clipboard-list"></i></span>7. System Models</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-8"><span class="theme-icon-holder me-2"><i class="fas fa-clipboard-list"></i></span>8. System Evolution</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-8-1">8.1 Assumptions</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-8-2">8.2 Anticipated Changes</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-8-3">8.3 Constraints</a></li>
+			    </ul>
+
+		    </nav><!--//docs-nav-->
+	    </div><!--//docs-sidebar-->
+	    <div class="docs-content">
+			<div class = "container" id = "resultContainer" style = "display: none;">
+				<article class = "docs-article">
+					<header class="docs-header">
+						<h1 class="docs-heading">Search Results</h1>
+					</header>
+					<section id = "searchResults"></section>
+				</article>
+			</div>
+		    <div class="container" id = "content">
+			    <article class="docs-article" id="section-0">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Requirement Specification Document</h1>
+				    </header>
+			    </article><!--//docs-article--> 
+
+			    <article class="docs-article" id="section-1">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Preface</h1>
+				    </header>
+					<section class="docs-section" id="item-1-1">
+						<h2 class="section-heading">1.1 Version History</h2>
+						<p>Currently at Document Version 1.0</p>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light">Version</th>
+									    <th class="theme-bg-light">Date</th>
+									    <th class="theme-bg-light">Description</th>
+									</tr>
+									<tr>
+										<td><a class="theme-link" href="requirement_1.0.html"> Version 1.0</a></td>
+										<td>May 20th, 2024</td>
+										<td>Initial Version</td>
+									</tr>
+									<tr>
+										<td><a class="theme-link" href="requirement_1.1.html"> Version 1.1</a></td>
+										<td>May 21th, 2024</td>
+										<td>Patch Error on 4.2, 6.2</td>
+									</tr>
+								</tbody>
+							</table>
+						</div><!--//table-responsive-->
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-2">
+						<h2 class="section-heading">1.2 Intended Audience and Reading Suggestions</h2>
+						<p>This documentation is dedicated to the following.</p>
+						<ul>
+						<li>Software Developers: those including engineers, and system architects to design, develop and test for accurate implementation</li>
+						<li>Project Managers: those to manage resources, track progress, and align with stakeholder expectations by getting an overview of the project scope and progress</li>
+						<li>End Users:&nbsp;</li>
+						<ul>
+							<li>Tourists such as individuals who visit Kyoto</li>
+							<li>Individuals who hold specific interest in visiting shrines and temples for cultural, spiritual, or historical reasons</li>
+							<li>Kyoto Tourism Association which will promote the application to tourists and locals while enhancing city tourism goals</li>
+							<li>Those who are involved in the management and operation of shrines such as priests, staff members, and volunteers, can gain insights from the application to effectively manage crowd flows within their premises</li>
+						</ul>
+						</ul>
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-3">
+						<h2 class="section-heading">1.3 Document Conventions</h2>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light">Abbreviation</th>
+									    <th class="theme-bg-light">Full Term</th>
+									</tr>
+									<tr>
+										<td>FREQ</td>
+										<td>Functional Requirement</td>
+									</tr>
+									<tr>
+										<td>NREQ</td>
+										<td>Non-Functional Requirement</td>
+									</tr>
+								</tbody>
+							</table>
+						</div><!--//table-responsive-->
+					</section><!--//section-->
+			    </article><!--//docs-article-->  
+
+			    <article class="docs-article" id="section-2">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Introduction</h1>
+				    </header>
+					<section class="docs-section" id="item-2-1">
+						<h2 class="section-heading">2.1 Project Scope</h2>
+						<p style="text-align: justify; text-indent: 36px">This project is bounded to the geological location of Kyoto City, Kyoto Prefecture. The project would not include any other area that is not within this bound. For the application itself, it is intended to be used by any people with intentions to visit shrines or temples in Kyoto city. However, the application would still be accessible for anyone with interest.</p>
+					</section><!--//section-->
+					<section class="docs-section" id="item-2-2">
+						<h2 class="section-heading">2.2 Project Perspective</h2>
+						<p style="text-align: justify; text-indent: 36px">The over-tourism problem in Japan has come to our attention to assist in countermeasures by managing crowds in popular tourist areas, especially shrines and temples. The main objective of our application is to make recommendations to users to find shrines and temples based on real-time crowdedness. In addition to providing the best routes to the destination by showing the user how to avoid crowdedness using real-time information and the crowd forecast, users can freely choose their preferences on shrines and temples. Ultimately, we aim to enhance their experience.</p>
+					</section><!--//section-->
+					<section class="docs-section" id="item-2-2">
+						<h2 class="section-heading">2.3 Use Case Diagram</h2>
+						<p style="text-align: justify; text-indent: 36px">Here is the use case diagram, Figure 1, this diagram describes how all actor's use case maybe. This system in particular, only has one actor, which is the user of this application.</p>
+						<img width = 100% src = "assets/images/use_case.svg"/>
+						<p style="text-align: center"><i>Figure 1: Use Case Diagram</i></p>
+					</section><!--//section-->
+			    </article><!--//docs-article-->  
+
+			    <article class="docs-article" id="section-3">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Glossary</h1>
+				    </header>
+					<section class="docs-section" id="item-3-1">
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light">Terminology</th>
+									    <th class="theme-bg-light">Definition</th>
+									</tr>
+									<tr>
+										<td>Shrine(s)</td>
+										<td>Refers to shrines and/or temples.</td>
+									</tr>
+									<tr>
+										<td>Crowdedness</td>
+										<td>Refers to the crowdedness ONLY around shrines or temples.</td>
+									</tr>
+									<tr>
+										<td>Route / Routes</td>
+										<td>Routes between one or multiple shrines or temples</td>
+									</tr>
+									<tr>
+										<td>Achievements</td>
+										<td>Achievements based on visiting shrines that are going to be designed by the developer.</td>
+									</tr>
+									<tr>
+										<td>Map Page</td>
+										<td>A dynamic page displaying a interactive map</td>
+									</tr>
+									<tr>
+										<td>Explore Page</td>
+										<td>A search tab for shrines and temples</td>
+									</tr>
+									<tr>
+										<td>Encrypted / Encryption</td>
+										<td>Security measure to protect sensitive data</td>
+									</tr>
+								</tbody>
+							</table>
+						</div><!--//table-responsive-->
+					</section><!--//section-->
+			    </article><!--//docs-article-->  
+
+			    <article class="docs-article" id="section-4">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">User Requirement</h1>
+				    </header>
+					<section class="docs-section" id="item-4-1">
+						<h2 class="section-heading">4.1 Functional Requirements</h2>
+						<ul>
+							<li>FREQ 1: Users shall be able to see the explore page as the first page when they open the application</li>
+							<li>FREQ 2: Users shall be able to see an interactive explore page showing nearby shrines</li>
+							<li>FREQ 3: Users shall be recommended routes for visiting multiple shrines daily</li>
+							<li>FREQ 4: Users shall be able to adjust the number of shrines to visit in a day</li>
+							<li>FREQ 5: Users shall be able to see route recommendations, including alternative routes if the primary route is not preferred</li>
+							<li>FREQ 6: Users shall be provided information to choose the transportation methods for the recommended routes, such as walking, train, and bus, and their price&nbsp;</li>
+							<li>FREQ 7: Users shall be able to see crowdedness information on using color-based mapping</li>
+							<li>FREQ 8: Users shall be able to filter shrines based on crowdedness levels</li>
+							<li>FREQ 9: Users shall be able to use the search functionality to find shrines based on various criteria (e.g., location, popularity)</li>
+							<li>FREQ 10: Users shall be able to see historical information about the shrines, nearby shops and restaurants, popular places for views around shines, dates for upcoming events at shrines</li>
+							<li>FREQ 11: Users shall be able to create and manage their accounts</li>
+							<li>FREQ 12: Users shall be able to delete their accounts anytime they want</li>
+							<li>FREQ 13: Users shall be able to save and view their favorite shrines in their accounts</li>
+							<li>FREQ 14: Users shall be able to record their visited shrines and see their achievements&nbsp;</li>
+							<li>FREQ 15: Users shall be able to leave ratings and reviews for each shrine</li>
+							<li>FREQ 16: Users shall be able to see other users’ reviews and shrine ratings</li>
+						  </ul>
+					</section><!--//section-->
+					<section class="docs-section" id="item-4-2">
+						<h2 class="section-heading">4.2 Non-functional Requirements</h2>
+						<ul>
+							<li>NREQ 1: Users shall be able to access the application from both mobile and desktop</li>
+							<li>NREQ 2: Users shall be able to access the system at all times</li>
+							<li>NREQ 3: Users shall be able to access the application even with a low-end device</li>
+							<li>NREQ 4: Users shall be able to navigate their way through the application with minimal instructions&nbsp;</li>
+							<li>NREQ 5. Users shall be given clear and consistent navigation throughout the routing</li>
+							<li>NREQ 6: Users shall be able to recover their account in case of a forgotten account password</li>
+							<li>NREQ 7: Users shall be able to give feedback on the application such as improvements to be made or any bugs in the application</li>
+						  </ul>
+					</section><!--//section-->
+			    </article><!--//docs-article-->  
+
+			    <article class="docs-article" id="section-5">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">System Architecture</h1>
+				    </header>
+					<section class="docs-section" id="item-5-1">
+						<p style="text-align: justify; text-indent: 36px">The system is generally analogous to a web app, where the system would have a user interface that requests processes from the server to show results to the user. The server would then make requests for data from external APIs. Figure 2 below is a diagram of the relationship between each component.</p>
+						<img width = 100%  src="assets/images/system_architecture.svg"/>
+						<p style="text-align: center"><i>Figure 2: System Architecture</i></p>
+					</section><!--//section-->
+			    </article><!--//docs-article-->  
+ 
+			    <article class="docs-article" id="section-6">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">System Requirement</h1>
+				    </header>
+					<section class="docs-section" id="item-6-1">
+						<h2 class="section-heading">6.1 Functional Requirements</h2>
+						<div>
+							<ul>
+							<li>FREQ 1: Users shall be able to see the explore page as the first page when they open the application.&nbsp;</li>
+							<ul>
+							  <li>FREQ 1.1: The system shall be set default to open up to the explore page when the application is initialized</li>
+							  <li>FREQ 1.2: The system shall remember which page the user leaves off when the user exits the application&nbsp;</li>
+							  <li>FREQ 1.3: The system shall display the page where the user leaves off if the user returns before closing the application</li>
+							</ul>
+							<li>FREQ 2: Users shall be able to see an interactive explore page showing nearby shrines</li>
+							<ul>
+							  <li>FREQ 2.1: The system shall load a map centralized to the location of the user. It should also display the loaded map as the user opens up the map page</li>
+							  <li>FREQ 2.2: The system shall load the location of 5 shrines and display it on the map as an icon</li>
+							  <li>FREQ 2.3: The system shall allow the user to move and navigate within the loaded map As the map is being updated, it also loads shrine locations that are within the scope of the updated map</li>
+							  <li>FREQ 2.4: The system shall display the crowdedness heat map around the shrines</li>
+							</ul>
+							<li>FREQ 3: Users shall be recommended routes for visiting multiple shrines in a day&nbsp;</li>
+							<ul>
+							  <li>FREQ 3.1: The system shall be able to produce a shrine hopping route based on the preferences of the user and crowdedness of shrines&nbsp;</li>
+							  <li>FREQ 3.2: The system shall display the route on the map page while identifying the shrines, the route, and the heat map around each shrine</li>
+							</ul>
+							<li>FREQ 4: Users shall be able to see route recommendations, including alternative routes if the main route is not preferred</li>
+							<ul>
+							  <li>FREQ 4.1: The system shall produce alternative routes which are displayed under the map page and users&nbsp;</li>
+							</ul>
+							<li>FREQ 5: Users shall be able to adjust the number of shrines to visit in a day</li>
+							<ul>
+							  <li>FREQ 5.1: The map page should have a slider for selecting how many shrines to recommend to the user&nbsp;</li>
+							  <li>FREQ 5.2: After the recommendation is displayed, the page should still have a slider to change the number of shrines to recommend&nbsp;</li>
+							</ul>
+							<li>FREQ 6: Users shall be provided information to choose the transportation methods for the recommended routes such as walking, train, and bus, and their price</li>
+							<ul>
+							  <li>FREQ 6.1: As the recommendation is being suggested, there should be a horizontal bar for the user to select which transportation (walking, train, bus) to use</li>
+							  <li>FREQ 6.2: The system shall produce multiple routes to hop between shrines and list the routes with the order of price</li>
+							</ul>
+							<li>FREQ 7: Users shall be able to see crowdedness information on using color-based mapping</li>
+							<ul>
+							  <li>FREQ 7.1: The system shall display the crowdedness data in the format of a heat map in most cases</li>
+							  <li>FREQ 7.2: The crowdedness heat map shall be able to be overlapped with the main map on the map page</li>
+							  <li>FREQ 7.3: The system shall be updating the crowdedness data every 5 minutes</li>
+							</ul>
+							<li>FREQ 8: Users shall be able to filter shrines based on crowdedness levels</li>
+							<ul>
+							  <li>FREQ 8.1: The map page shall have a slider to change the crowdedness level for the recommendation system to filter&nbsp;</li>
+							  <li>FREQ 8.2: After the recommendation is displayed, the page should still have the slider</li>
+							</ul>
+							<li>FREQ 9: Users shall be able to use the search functionality to find shrines based on various criteria (e.g., location, popularity)</li>
+							<ul>
+							  <li>FREQ 9.1: The explore page shall have a search bar on the top of the page</li>
+							  <li>FREQ 9.2: The explore page shall have a list of categories under the search bar</li>
+							  <li>FREQ 9.3: The explore page shall replace the list of categories with a list of shrines based on the keyword inputted by the user.</li>
+							  <li>FREQ 9.4: Each entry of the results should include the shrine's name, rating, and crowdedness level</li>
+							  <li>FREQ 9.5: The listed results should be able to be clicked to see a more detailed information page</li>
+							</ul>
+							<li>FREQ 10: Users shall be able to see historical information about the shrines, nearby shops and restaurants, popular places for views around shines, dates for upcoming events at shrines</li>
+							<ul>
+							  <li>FREQ 10.1: The information page should have a section on the shrine, including its name, several pictures, a crowdedness heat map, general information, historical information, a nearby restaurant, the closest stations, and dates of upcoming events&nbsp;</li>
+							</ul>
+							<li>FREQ 11: Users shall be able to create and manage profiles</li>
+							<ul>
+							  <li>FREQ 11.1: The system shall have a user page</li>
+							  <li>FREQ 11.2: The user shall be able to create an account if there is no account logged in</li>
+							  <li>FREQ 11.3: The user shall be able to log in if there is no account logged in</li>
+							  <li>FREQ 11.4: The system shall have a user profile section when an account is logged in</li>
+							</ul>
+							<li>FREQ 12: Users shall be able to delete their accounts anytime they want</li>
+							<ul>
+							  <li>FREQ 12.1: The system shall delete all user data if user has chosen to delete their account</li>
+							  <li>FREQ 12.2: After an account is deleted, the system shall allow the users to create a new one</li>
+							</ul>
+							<li>FREQ 13: Users shall be able to save their favorite shrines and view them</li>
+							<ul>
+							  <li>FREQ 13.1: The user page shall have a favorite shrines section where the user can see a list of shrines they have favorited</li>
+							  <li>FREQ 13.2: Each entry of the list of favorited shrines shall lead to the information page of the selected shrine</li>
+							  <li>FREQ 13.3: During recommendation on the map page, there shall be a button to add the shrine recommended to favorite shrines</li>
+							  <li>FREQ 13.4: The information page of each shrine shall have a button for saving to favorite shrines</li>
+							</ul>
+							<li>FREQ 14: Users shall be able to record shrines they have visited and see their achievements&nbsp;</li>
+							<ul>
+							  <li>FREQ 14.1: The user page shall have an achievement section</li>
+							  <li>FREQ 14.2: The user page shall have a visited shrines section for the user to see a list of shrines they visited</li>
+							  <li>FREQ 14.3: Each entry of the list of visited shrines shall lead to the information page of the selected shrine</li>
+							  <li>FREQ 14.4: During recommendation on the map page, there shall be a button to add the shrine recommended to visited shrines</li>
+							  <li>FREQ 14.5: The information page of each shrine shall have a button for saving to visited shrines</li>
+							</ul>
+							<li>FREQ 15: Users shall be able to leave ratings and reviews for each shrine</li>
+							<ul>
+							  <li>FREQ 15.1: If there is an account logged in, the user shall be able to leave a comment under the information page of the shrine</li>
+							  <li>FREQ 15.2: If there is an account logged in, in the comment section of the information page, there shall be a text bar for the user to comment</li>
+							</ul>
+							<li>FREQ 16: Users shall see other users’ comments and ratings for shrines</li>
+							<ul>
+							  <li>FREQ 16.1: The information page for each shrine should include the average rating of all users that left a rating</li>
+							  <li>FREQ 16.2: There shall be a comment section where comments on the shrine from other users shall be displayed</li>
+							</ul>
+						  	</ul>
+						</div>
+					</section><!--//section-->
+					<section class="docs-section" id="item-6-2">
+						<h2 class="section-heading">6.2 Non-functional Requirements</h2>
+						<div>
+							<ul>
+								<li>NREQ 1: The system shall provide a web interface for application features</li>
+								<ul>
+								  <li>NREQ 1.1: The system shall support iOS and Android mobile platforms</li>
+								  <li>NREQ 1.2 :The system shall support all web browsers such as Safari, Google Chrome, Mozilla Firefox, and Edge</li>
+								</ul>
+								<li>NREQ 2: The system shall respond to user requests such as planning a route based on specific preferences and changing the filter level of crowdedness level, within three seconds under normal operating conditions&nbsp;</li>
+								<ul>
+								  <li>NREQ 2.1: Loading time shall not exceed five seconds on average, even during peak usage periods</li>
+								  <li>NREQ 2.2: The system shall be able to handle increasing users without affecting performance</li>
+								</ul>
+								<li>NREQ 3: The system shall support the English language at minimum</li>
+								<ul>
+									<li>NREQ 3.1: The system shall support the English US region Locale: "en_US" </li>
+								</ul>
+								<li>NREQ 4: The system shall store and handle user data adhering to standards</li>
+								<ul>
+								  <li>NREQ 4.1: Databases containing personal information relating to users shall be encrypted</li>
+								  <li>NREQ 4.2: Encryption keys must not be accessible to developers of the system</li>
+								  <li>NREQ 4.3: The system, excepted for account authentication processes, shall not have any access of user credentials, such as passwords</li>
+								  <li>NREQ 4.4: User authentication shall be implemented to ensure that only authorized users have access to sensitive information</li>
+								</ul>
+								<li>NREQ 5: The system shall provide accurate and up-to-date information on the shrines and temples</li>
+								<ul>
+								  <li>NREQ 5.1: The uptime of the software should be high (99.9%) with mechanisms to handle server failures or unexpected errors</li>
+								</ul>
+								<li>NREQ 6: The system shall allow users to recover their account in case of a forgotten account password</li>
+								<ul>
+									<li>NREQ 6.1: The system implement mechanisms for users to enter the email address that created the account and allow users to change the password</li>
+								</ul>
+							  </ul>
+						</div>
+					</section><!--//section-->
+			    </article><!--//docs-article-->  
+
+			    <article class="docs-article" id="section-7">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">System Model</h1>
+				    </header>
+					<section class="docs-section" id="item-5-1">
+						<p style="text-align: justify; text-indent: 36px">The system is generally separated into five parts: the user interface, the recommendation system, the users and shrines database, external APIs, and the user. The interaction between each part will be described here. The user interacts with the user interface where the user interface interacts with the recommendation system and the database. The user interface can request shrine-hopping routes from the recommendation system and view shrine information from the database as the main functionality. The recommendation system interacts with external APIs, where the crowdedness data is needed when recommending routes. Figure 23 describes these interactions with more detail.</p>
+						<img width = 100% src="assets/images/system_model.svg"/>
+						<p style="text-align: center"><i>Figure 2: System Model</i></p>
+					</section><!--//section-->
+			    </article><!--//docs-article-->  
+
+			    <article class="docs-article" id="section-8">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">System Evolution</h1>
+				    </header>
+					<section class="docs-section" id="item-8-1">
+						<h2 class="section-heading">8.1 Assumption</h2>
+						<p style="text-align: justify; text-indent: 36px">The system is assuming the user is a singular person or a small group of people. The system does not consider any cases where the user is a large group a people, for example: a bus tour group.</p>
+					</section><!--//section-->
+					<section class="docs-section" id="item-8-2">
+						<h2 class="section-heading">8.2 Anticipated Changes</h2>
+						<p style="text-align: justify; text-indent: 36px">The team is anticipating changes that may be included in future revisions of the requirement specification document.</p>
+						<ul>
+							<li>Additional Sub-categories of shrines: There may be categories that users may be interested in, but the system does not support to recommend.</li>
+							<li></li>
+						</ul>
+					</section><!--//section-->
+					<section class="docs-section" id="item-8-3">
+						<h2 class="section-heading">8.2 Constraints</h2>
+						<ul>
+							<li>Time constraint: There are only 15 weeks for the entire project, where completeness of the system implementation is limited.</li>
+							<li>Monetary constraint: The system does not propose any resolution to profit for paying API calls. Therefore, in the long run, the project is not sustainable.</li>
+						</ul>
+					</section><!--//section-->
+			    </article><!--//docs-article-->  
+
+			    <footer class="footer">
+				    <div class="container text-center py-5">
+				        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+			            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link" href="http://github.com/LeoLin930104" target="_blank">Leo Lin</a> for Group C</small>
+				        <ul class="social-list list-unstyled pt-4 mb-0">
+				        </ul><!--//social-list-->
+				    </div>
+			    </footer>
+		    </div> 
+	    </div>
+    </div><!--//docs-wrapper-->
+   
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    
+    
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+
+
+</body>
+</html> 
+

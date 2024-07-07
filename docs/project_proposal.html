@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>ShrineSeeker - Project Proposal</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Bootstrap 4 Template For Software Startups">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css">
+
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+</head> 
+
+<body class="docs-page">    
+    <header class="header fixed-top">	    
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+					<button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+	                    <span></span>
+	                    <span></span>
+	                    <span></span>
+	                </button>
+	                <div class="site-logo"><a class="navbar-brand" href="index.html"><img width="30px" class="logo-icon me-2" src="assets/images/torii-gate.svg" alt="logo"><span class="logo-text">Shrine<span class="text-alt">Seeker</span></span></a></div>    
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+	                <div class="top-search-box d-none d-lg-flex">
+		                <form class="search-form" onsubmit="return false;">
+				            <input id = 'searchText' type="text" placeholder="Search the docs..." name="search" class="form-control search-input" onkeydown="handleKeyPress(event)">
+				            <button type="submit" class="btn search-btn" value="Search" onclick="handleButtonPress()"><i class="fas fa-search"></i></button>
+							<script>
+								function handleButtonPress(){
+									var currentSearchText = document.getElementById('searchText').value.trim();
+									searchText(currentSearchText.toLowerCase());
+								}
+								// Function to handle key press event and trigger search on Enter key
+								function handleKeyPress(event) { 
+									var keyCode = event.keyCode || event.which;
+									var validKeyCodes = [8, 13]; // Backspace (8) and Enter (13)
+									
+									// Check if the key pressed is a character or a valid key
+									if ((keyCode >= 65 && keyCode <= 90) || validKeyCodes.includes(keyCode)) {
+										var currentSearchText = document.getElementById('searchText').value.trim();
+										var keyPressed = event.key;
+						
+										// Handle Backspace key press
+										if (keyCode === 8) {
+											// Remove the last character from the search text
+											if(currentSearchText == ''){
+												
+											} else {
+												currentSearchText = currentSearchText.slice(0, -1);
+											}
+										} else if (keyCode === 13) {
+											// If Enter is pressed, trigger search
+											searchText();
+											return;
+										} else {
+											// Append the pressed key to the current search text
+											currentSearchText += keyPressed;
+										}
+						
+										// Trigger the search
+										searchText(currentSearchText.toLowerCase());
+									}
+								}
+						
+								// Function to search for text within the website content and display search results
+								function searchText(text) {
+									var searchText = text
+									console.log(searchText)
+									var resultsContainer = document.getElementById('searchResults');
+									resultsContainer.innerHTML = ''; // Clear previous search results
+									console.log(searchText);
+									if (searchText === '') {
+										document.getElementById('content').style.display = '';
+										document.getElementById('resultContainer').style.display = 'none';
+										return; // Do nothing if search text is empty
+									}
+									var searchableElements = document.querySelectorAll('section'); // Add more elements as needed
+
+									var resultsFound = false;
+								
+									// Iterate over each searchable element
+									searchableElements.forEach(function(element) {
+									var content = element.textContent.trim().toLowerCase(); // Get the text content of the element
+								
+										// Check if the element's content contains the desired text
+										if (content.includes(searchText)) {
+											// Clone the parent element and its content
+											var ElementClone = element.cloneNode(true);
+											
+											// Remove any existing ID to avoid duplication
+											ElementClone.removeAttribute('id');
+											var regex = new RegExp(searchText, 'gi');
+											ElementClone.innerHTML = ElementClone.textContent.replace(regex, '<span style = "background-color: yellow;">$&</span>');
+											
+											
+											// Append the cloned parent element to the results container
+											resultsContainer.appendChild(ElementClone);
+											resultsFound = true;
+										}
+									});
+								
+									// If no results found, display a message
+									if (!resultsFound) {
+										var noResultsElement = document.createElement('p');
+										noResultsElement.textContent = 'No results found.';
+										resultsContainer.appendChild(noResultsElement);
+									}
+
+									document.getElementById('content').style.display = 'none';
+									document.getElementById('resultContainer').style.display = '';
+
+								}
+							</script>
+				        </form>
+	                </div>
+	
+					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+		            </ul><!--//social-list-->
+		            <a href="https://github.com/LeoLin930104/PBL3" class="btn btn-primary d-none d-lg-flex">Github</a>
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    
+    
+    <div class="docs-wrapper">
+	    <div id="docs-sidebar" class="docs-sidebar">
+		    <div class="top-search-box d-lg-none p-3">
+                <form class="search-form">
+		            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+		            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+		        </form>
+            </div>
+		    <nav id="docs-nav" class="docs-nav navbar">
+			    <ul class="section-items list-unstyled nav flex-column pb-3">
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-file"></i></span>Project Proposal</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Abstract</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">Background</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3">Objective</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-4">Overview of Features</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-5">Methodology</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-6">Limitation</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-7">Reference</a></li>
+			    </ul>
+
+		    </nav><!--//docs-nav-->
+	    </div><!--//docs-sidebar-->
+	    <div class="docs-content">
+			<div class = "container" id = "resultContainer" style = "display: none;">
+				<article class = "docs-article">
+					<header class="docs-header">
+						<h1 class="docs-heading">Search Results</h1>
+					</header>
+					<section id = "searchResults"></section>
+				</article>
+			</div>
+		    <div class="container" id = "content">
+			    <article class="docs-article" id="section-1">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Project Proposal</h1>
+					    <section class="docs-intro">
+						    <p style="text-align: right">Group C</p>
+						    <p style="text-align: right">April 26th, 2024</p>
+						</section><!--//docs-intro-->
+				    </header>
+				     <section class="docs-section" id="item-1-1">
+						<h2 class="section-heading">Abstract</h2>
+						<p style="text-align: justify; text-indent: 36px">While Japan suffers from over-tourism, it also depends on the tourists' economic benefits. Especially in its history-rich city, Kyoto, shrines and temples are impacted the most. For Japan to maintain its integrity while satisfying the tourists’ experience, we aim to address the causality of over-tourism in this project. This project would present a resolution through a route-suggesting application that prevents tourists from visiting crowded shrines or temples, making them more crowded, intensifying the problem</p>
+						</section><!--//section-->
+					
+					<section class="docs-section" id="item-1-2">
+						<h2 class="section-heading">Background</h2>
+						<p style="text-align: justify; text-indent: 36px">With an average figure of 25 million visits yearly before the COVID-19 pandemic, Japan has long been renowned for its beauty and rich cultural heritage among tourists. After the pandemic significantly disrupted the global tourism industry, including Japan, the country soon recovered, accounting for 25 million visitors in 2022, almost the same as pre-pandemic figures (Japan Tourism Statistics, 2024). With such a large number of travelers, the problem of tourism, such as buses being overly crowded, which made it hard for local elderly and those with baby strollers to utilize them, and poor behaviors, including littering, trespassing on private land, has surfaced, typically in Kyoto (Mainichi Daily News, 2023). This problem of over-tourism has come to our attention to assist in countermeasures by managing crowds in popular tourist areas, especially shrines and temples. By developing an application, we aim to provide interactive solutions to tourists who wish to explore Japan’s captivating history, hence easing the tourist crisis Japan is suffering from.</p>
+					</section><!--//section-->
+					
+					<section class="docs-section" id="item-1-3">
+						<h2 class="section-heading">Introduction</h2>
+						<p style="text-align: justify; text-indent: 36px">To address the problem of over-tourism, we aim to create an application that makes recommendations to users designed to find shrines and temples based on real-time crowdedness. The main functionality of this app will be to recommend the best routes to the destination by showing the user how to avoid crowdedness using real-time information and the forecast of the shrine or temple that the user is considering visiting. This will be part of the categories the user can pick from to find the destination they want to go to, which ultimately works as a filtered search. We will also include functions such as displaying the nearest shrine or temple based on their current location, the distance to the destination from the current location, and the transportation prices to get there.</p>
+					</section><!--//section-->
+
+					<section class="docs-section" id="item-1-4">
+						<h2 class="section-heading">Overview of Features</h2>
+						<p style="text-align: justify; text-indent: 36px">In detail, our project aims to realize a few features. The main feature would allow the user to choose, based on their preference, the shrines and temples they would want to visit. The app would then recommend a visiting route, considering the crowdedness data. The chosen preferences, currently, would include worshiping gods, ratings, reviews, distance, price, and crowdedness. The list is evolvable depending on available data from shrine and temple databases. Although this feature is potentially helpful, however, it alone as an application is not complete.</p>
+						<p style="text-align: justify; text-indent: 36px">There are secondary features that the application would like to implement to make the experience more complete. One of them would be shrine and temple information-look up. The user should be able to see the information such as address, operating hours, worshiping gods, and built era before they make decisions on which to visit, or simply, they would want to look up the information. Similarly, there may be cases in which the user is not clear about their preference for shrines and temples as they simply might want to explore. Another feature would allow the user to explore shrines and temples by categories. An explore tab in the application would list different types of temples for the user to read and explore. If they are interested, the user is then led to use the main feature to visit the shrines or temples that appeal to their interests.</p>
+						<p style="text-align: justify; text-indent: 36px">For this application to be acceptable for tourists, the project plans to integrate general tourist-oriented features to boost the entertainment aspect. These features are more desirable than necessary, such as creating accounts that record achievement and taking part in quiz sections. Users can create an account, add favorite shrines and temples, and log those that they have been to. Depending on this, the application records a streak, such as visiting several shrines and temples for some consecutive weeks. In addition, it will store quiz achievements and stamps collected from the shrines that the user visited. The quiz section includes trivial questions on history, architecture, and traditions, and achievements will be rewarded. A score board featuring the number of achievements of the application users will also be implemented in the future.</p>
+					</section><!--//section-->
+
+					<section class="docs-section" id="item-1-5">
+						<h2 class="section-heading">Methodology</h2>
+						<p style="text-align: justify; text-indent: 36px">Regarding what platform to host and serve this application, the decision should depend on how the application is used. This application focuses on how a tourist can avoid crowded areas in real-time. The real-time factor suggests that the device the user is most probable to carry is limited to their smartphone. Due to the limited selection of devices, this application is more preferably be developed as an app on iOS/Android, or a web app which is accessible from any mobile device. Considering the time limitation of this project, creating the application on a duo platform is not wise in time management. A web app is the most appropriate solution.</p>
+						<p style="text-align: justify; text-indent: 36px">With some research, we have discovered that there are apps on both iOS and Android that can serve a web app as a regular smartphone application. The team would be looking into the possibility of such deployment. However, remaining as a web app would be easier to manage in terms of consistency.</p>
+					</section><!--//section-->
+
+					<section class="docs-section" id="item-1-6">
+						<h2 class="section-heading">Limitation</h2>
+						<p style="text-align: justify; text-indent: 36px">Since the project plans to rely primarily on APIs to collect crowdedness data, this application has some potential sustainability issues. For example, if the API goes offline, then the application can no longer fetch the crowdedness data that the recommendation system needs. Such an event would cause the application’s main feature to be non-functional. In addition, due to the reliance, if the API decided to make upcharge to their request calls for an actual project with a limited budget, this would not be sustainable as well. While acknowledging this drawback, considering the cost of creating an independent data collection system, the current solution is more unfeasible.</p>
+					</section><!--//section-->
+
+					<section class="docs-section" id="item-1-7">
+						<h2 class="section-heading">Reference</h2>
+							<div style="text-indent: -36px; padding-left: 36px">  [1] “Data list | Japan Tourism Statistics | Japan National Tourism Organization (JNTO),” Jnto.go.jp, 2024. https://statistics.jnto.go.jp/en/graph/#graph--inbound--travelers--transition</div>
+							<br>
+							<div style="text-indent: -36px; padding-left: 36px">  [2] “News Navigator: What exactly is the ‘overtourism’ problem in Kyoto?,” Mainichi Daily News, Nov. 14, 2023. Available: https://mainichi.jp/english/articles/20231114/p2a/00m/0op/016000c</div>
+					</section><!--//section-->
+			    </article><!--//docs-article-->  
+			    
+			    <footer class="footer">
+				    <div class="container text-center py-5">
+				        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+			            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link" href="http://github.com/LeoLin930104" target="_blank">Leo Lin</a> for Group C</small>
+				        <ul class="social-list list-unstyled pt-4 mb-0">
+				        </ul><!--//social-list-->
+				    </div>
+			    </footer>
+		    </div> 
+	    </div>
+    </div><!--//docs-wrapper-->
+   
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    
+    
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+
+
+</body>
+</html> 
+

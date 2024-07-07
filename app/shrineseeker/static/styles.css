@@ -1,0 +1,105 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  
+}
+
+header {
+
+  background-color: White;
+  
+  color: #b7455b;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 500px;
+}
+
+.profile-section {
+  display: flex;
+  width: 100%;
+  background-color: #b7455b;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+
+
+.profile-info h2 {
+  margin: 0;
+  color: white;
+}
+
+.profile-info p {
+  margin: 5px 0 0;
+  color: white;
+}
+
+.sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar button {
+  background-color: #f4f4f4;
+  border: none;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  text-align: left;
+}
+
+
+
+.sidebar button.logout {
+  color: black;
+}
+
+.shrines {
+  flex: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.shrine-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  width: 150px;
+  margin: 10px;
+  text-align: center;
+}
+
+.shrine-pic {
+  width: 100%;
+  height: 100px;
+  background-color: #ddd;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}

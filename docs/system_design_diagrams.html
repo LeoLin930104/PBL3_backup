@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>ShrineSeeker - </title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Bootstrap 4 Template For Software Startups">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css">
+
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+</head> 
+
+<body class="docs-page">    
+    <header class="header fixed-top">	    
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+					<button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+	                    <span></span>
+	                    <span></span>
+	                    <span></span>
+	                </button>
+	                <div class="site-logo"><a class="navbar-brand" href="index.html"><img width="30px" class="logo-icon me-2" src="assets/images/torii-gate.svg" alt="logo"><span class="logo-text">Shrine<span class="text-alt">Seeker</span></span></a></div>    
+                 </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+	                <div class="top-search-box d-none d-lg-flex">
+		                <form class="search-form" onsubmit="return false;">
+				            <input id = 'searchText' type="text" placeholder="Search the docs..." name="search" class="form-control search-input" onkeydown="handleKeyPress(event)">
+				            <button type="submit" class="btn search-btn" value="Search" onclick="handleButtonPress()"><i class="fas fa-search"></i></button>
+							<script>
+								function handleButtonPress(){
+									var currentSearchText = document.getElementById('searchText').value.trim();
+									searchText(currentSearchText.toLowerCase());
+								}
+								// Function to handle key press event and trigger search on Enter key
+								function handleKeyPress(event) { 
+									var keyCode = event.keyCode || event.which;
+									var validKeyCodes = [8, 13]; // Backspace (8) and Enter (13)
+									
+									// Check if the key pressed is a character or a valid key
+									if ((keyCode >= 65 && keyCode <= 90) || validKeyCodes.includes(keyCode)) {
+										var currentSearchText = document.getElementById('searchText').value.trim();
+										var keyPressed = event.key;
+						
+										// Handle Backspace key press
+										if (keyCode === 8) {
+											// Remove the last character from the search text
+											if(currentSearchText == ''){
+												
+											} else {
+												currentSearchText = currentSearchText.slice(0, -1);
+											}
+										} else if (keyCode === 13) {
+											// If Enter is pressed, trigger search
+											searchText();
+											return;
+										} else {
+											// Append the pressed key to the current search text
+											currentSearchText += keyPressed;
+										}
+						
+										// Trigger the search
+										searchText(currentSearchText.toLowerCase());
+									}
+								}
+						
+								// Function to search for text within the website content and display search results
+								function searchText(text) {
+									var searchText = text
+									console.log(searchText)
+									var resultsContainer = document.getElementById('searchResults');
+									resultsContainer.innerHTML = ''; // Clear previous search results
+									console.log(searchText);
+									if (searchText === '') {
+										document.getElementById('content').style.display = '';
+										document.getElementById('resultContainer').style.display = 'none';
+										return; // Do nothing if search text is empty
+									}
+									var searchableElements = document.querySelectorAll('section'); // Add more elements as needed
+
+									var resultsFound = false;
+								
+									// Iterate over each searchable element
+									searchableElements.forEach(function(element) {
+									var content = element.textContent.trim().toLowerCase(); // Get the text content of the element
+								
+										// Check if the element's content contains the desired text
+										if (content.includes(searchText)) {
+											// Clone the parent element and its content
+											var ElementClone = element.cloneNode(true);
+											
+											// Remove any existing ID to avoid duplication
+											ElementClone.removeAttribute('id');
+											var regex = new RegExp(searchText, 'gi');
+											ElementClone.innerHTML = ElementClone.textContent.replace(regex, '<span style = "background-color: yellow;">$&</span>');
+											
+											
+											// Append the cloned parent element to the results container
+											resultsContainer.appendChild(ElementClone);
+											resultsFound = true;
+										}
+									});
+								
+									// If no results found, display a message
+									if (!resultsFound) {
+										var noResultsElement = document.createElement('p');
+										noResultsElement.textContent = 'No results found.';
+										resultsContainer.appendChild(noResultsElement);
+									}
+
+									document.getElementById('content').style.display = 'none';
+									document.getElementById('resultContainer').style.display = '';
+
+								}
+							</script>
+				        </form>
+	                </div>
+	
+					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+		            </ul><!--//social-list-->
+		            <a href="https://github.com/LeoLin930104/PBL3" class="btn btn-primary d-none d-lg-flex">Github</a>
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    
+    
+    <div class="docs-wrapper">
+	    <div id="docs-sidebar" class="docs-sidebar">
+		    <div class="top-search-box d-lg-none p-3">
+                <form class="search-form">
+		            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+		            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+		        </form>
+            </div>
+		    <nav id="docs-nav" class="docs-nav navbar">
+			    <ul class="section-items list-unstyled nav flex-column pb-3">
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-diagram-predecessor"></i></span> System Design Diagrams</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Version History</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">Introduction</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3">System Architecture</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-4">Use Case Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-5">Context Model Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-6">System Overview Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-7">State Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-8">Class Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-9">User Page Activity Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-10">Shrine Page Activity Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-11">Map Page Activity Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-12">Account Creation Activity Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-13">Login Activity Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-14">Shrine Look up Sequence Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-15">Route Requesting Sequence Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-16">Check Crowdedness Sequence Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-17">Recover Password Sequence Diagram</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-18">Add Shrine Sequence Diagram</a></li>
+			    </ul>
+
+		    </nav><!--//docs-nav-->
+	    </div><!--//docs-sidebar-->
+	    <div class="docs-content">
+			<div class = "container" id = "resultContainer" style = "display: none;">
+				<article class = "docs-article">
+					<header class="docs-header">
+						<h1 class="docs-heading">Search Results</h1>
+					</header>
+					<section id = "searchResults"></section>
+				</article>
+			</div>
+		    <div class="container" id = "content">
+			    <article class="docs-article" id="section-1">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">System Design Diagrams</h1>
+						
+				    </header>
+					<section class="docs-section" id="item-1-1">
+						<h2 class="section-heading">Version History</h2>
+						<p>Currently at Document Version 1.0</p>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light">Version</th>
+									    <th class="theme-bg-light">Date</th>
+									    <th class="theme-bg-light">Description</th>
+									</tr>
+									<tr>
+										<td><a class="theme-link" href="system_design_diagrams_1.0.html"> Version 1.0</a></td>
+										<td>June 17th, 2024</td>
+										<td>Initial Version</td>
+									</tr>
+									<tr>
+										<td><a class="theme-link" href="system_design_diagrams.html"> Version 1.1</a></td>
+										<td>June 18th, 2024</td>
+										<td>Added Version History, Introduction and System Architecture</td>
+									</tr>
+								</tbody>
+							</table>
+						</div><!--//table-responsive-->
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-2">
+						<h1>Introduction</h1>
+						<p style="text-align:justify;">This document describes the structural diagrams of the ShrineSeeker application.&nbsp;First, the class diagram and the state diagram are drawn to determine the classes and objects used throughout the system. Then, we drew the use case diagram and determined which use case is to be drawn into either an activity diagram or a sequence diagram.&nbsp;</p>
+						<p>&nbsp;The diagrams are as below.</p>
+						<ul>
+							<li>Use Case Diagram</li>
+							<li>Context Model Diagram</li>
+							<li>System Overview Diagram</li>
+							<li>State Diagram</li>
+							<li>Class Diagram</li>
+							<li>User Page Activity Diagram</li>
+							<li>Shrine Page Activity Diagram</li>
+							<li>Map Page Activity Diagram</li>
+							<li>Account Creation Activity Diagram</li>
+							<li>Login Activity Diagram</li>
+							<li>Shrine Look up Sequence Diagram</li>
+							<li>Route Requesting Sequence Diagram</li>
+							<li>Check Crowdedness Sequence Diagram</li>
+							<li>Recover Password Sequence Diagram</li>
+							<li>Add Shrine Sequence Diagram</li>
+						</ul>
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-3">
+						<h2>System Architecture</h2>
+						<p>The system architecture for our application is divided into three tiers: presentation tier, application tier, and database or data tier. In addition, external APIs such as Google Maps API and BestTime API are used.</p>
+						<p>Presentation Level</p>
+						<ul>
+							<li>User Registration &amp; Log In Interface</li>
+							<li>User Page Interface</li>
+							<li>Shrine Page Interface</li>
+							<li>Explore Page Interface</li>
+							<li>Map Page Interface</li>
+						</ul>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<td>
+										<strong>Purpose</strong>
+										</td>
+										<td>Library or Framework</td>
+									</tr>
+									<tr>
+										<td>
+										<strong>Programming Language</strong>
+										</td>
+										<td>HTML5, CSS, JavaScript</td>
+									</tr>
+									<tr>
+										<td>
+										<strong>App Framework</strong>
+										</td>
+										<td>Vue.js</td>
+									</tr>
+								</tbody>
+							</table>
+						</div><!--//table-responsive-->
+						<p>Application Level</p>
+						<ul>
+							<li>Route Recommendation Service</li>
+							<li>Google Maps API</li>
+							<li>BestTime API</li>
+						</ul>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<td>
+										<strong>Purpose</strong>
+										</td>
+										<td>Library or Framework</td>
+									</tr>
+									<tr>
+										<td>
+										<strong>Programming Language</strong>
+										</td>
+										<td>Python</td>
+									</tr>
+									<tr>
+										<td>
+										<strong>App Framework</strong>
+										</td>
+										<td>Django </td>
+										<td>Rest Framework </td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Data Level</p>
+						<ul>
+							<li>User database - sqlite</li>
+							<li>Shrine database - sqlite</li>
+						</ul>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<td>
+										<strong>Purpose</strong>
+										</td>
+										<td>Library or Framework</td>
+									</tr>
+									<tr>
+										<td>
+										<strong>Database Platform</strong>
+										</td>
+										<td>Json Files and MariaDB</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-4">
+						<h1>Use Case Diagram</h1>
+						<p>The use case diagram describes all the possible use case that each actors can interact with in the system.</p>
+						<img width = 100% src = "assets/images/diagrams/use_case.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-5">
+						<h1>Context Model</h1>
+						<p>This is the context model showing how different subsystems are connected in this project.</p>
+						<img width = 50% src = "assets/images/diagrams/context_model.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-6">
+						<h1>System Overview diagram</h1>
+						<p>This activity diagram summarizes all of the functions in the whole system. Unregistered users are encouraged to make an account before being allowed access to the functions.</p>
+						<img width = 100% src = "assets/images/diagrams/system_overview.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-7">
+						<h1>State diagram</h1>
+						<p>This diagram shows the description of the user interface, or display, of the application during different states. In addition, it also describes what actions brings a state to another.</p>
+						<img width = 100% src = "assets/images/diagrams/state.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-8">
+						<h1>Class diagrams</h1>
+						<p>This diagram shows all the classes and the relation between the classes that will be implemented in our application.</p>
+						<img width = 100% src = "assets/images/diagrams/class_diagram.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-9">
+						<h1>User Page Activity Diagram</h1>
+						<p>The activity diagram describes the progress of logging out, deleting the account, checking achievements and checking shrines that are favorited and visited. All of these functions are available on the user page. One thing to note is that the user has to be logged in before doing the above mentioned functions.</p>
+						<img width = 100% src = "assets/images/diagrams/user_page_activity.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-10">
+						<h1>Shrine Page Activity Diagram</h1>
+						<p>Implemented four use cases, including check/leave comments, check/leave ratings, favorite, and visited. They will all be on every shrine page.</p>
+						<img width = 70% src = "assets/images/diagrams/shrine_page_activity.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-11">
+						<h1>Map Page Activity Diagram</h1>
+						<p>This diagram describes the process involved in the recommendation system on the map. The route recommendation system is based on what has accumulated in the user's preferences. If the user is new, the system will use the default preference. The user will be recommended two routes; main route and secondary route and the user will have to choose either one. After this, the route is considered to be chosen and the system will display the detailed information of that route. If the user does not like the recommended routes, there is an option to regenerate the routes. The map icons of nearby shrines as well as their crowdedness level. When the icon of a particular shrine is clicked, it leads to its respective shrine page.</p>
+						<img width = 100% src = "assets/images/diagrams/map.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-12">
+						<h1>Account Creation Activity Diagram</h1>
+						<p>This activity diagram shows the signing up procedure for users to create an account. The requirement of the password should be 8 characters long including both uppercase and lowercase letters. Users can also retry to create an account if the link has expired.</p>
+						<img width = 70% src = "assets/images/diagrams/Account Creation.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-13">
+						<h1>Login Activity Diagram</h1>
+						<p>The process of login to reach the user's homepage with processing email and passwords. It also guides users to sign up and forget the password page if they do not have an account or have forgotten passwords.</p>
+						<img width = 70% src = "assets/images/diagrams/Login_activity.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-14">
+						<h1>Looking up Shrine by Name or Category Sequence Diagram</h1>
+						<p>This sequence diagram shows the flow in which the user searches for a particular shrine information. There are two types of search method, name and category.</p>
+						<img width = 70% src = "assets/images/diagrams/Shrine_lookup.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-15">
+						<h1>Sequence Diagram for "Request for Shrine Hopping Routes"</h1>
+						<p>This sequence diagram describes the process involved in requesting shrine hopping routes. The routes requested by the system are obtained from Google Maps API and displayed to the user in the user interface. </p>
+						<img width = 70% src = "assets/images/diagrams/request_routes.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-16">
+						<h1>Sequence Diagram for "Check Crowdedness Around Shrines"</h1>
+						<p>This sequence diagram describes the process in checking the crowdedness around the shrines. The user should be able to see the crowdedness level near each shrine, in which the data is retrieved from the BestTime API.</p>
+						<img width = 70% src = "assets/images/diagrams/check_crowdedness.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-17">
+						<h1>Sequence Diagram for "Recover Password"</h1>
+						<p>This sequence diagram shows the process for recovering the password if a user has forgotten the password to their account. The link to reset password will expire within 10 minutes and the user will have to try again if it expires.</p>
+						<img width = 70% src = "assets/images/diagrams/recover_password.drawio.svg">
+					</section><!--//section-->
+					<section class="docs-section" id="item-1-18">
+						<h1>Sequence Diagram for "Add Shrine"</h1>
+						<p>This sequence diagram shows the flow of shrine being added by the administrator. This is done in cases where new shrines have been built or shrines that are not already in our database are added.</p>
+						<img width = 70% src = "assets/images/diagrams/add_shrine.drawio.svg">
+					</section><!--//section-->
+			    </article><!--//docs-article-->
+
+			    <footer class="footer">
+				    <div class="container text-center py-5">
+				        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+			            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link" href="http://github.com/LeoLin930104" target="_blank">Leo Lin</a> for Group C</small>
+				        <ul class="social-list list-unstyled pt-4 mb-0">
+				        </ul><!--//social-list-->
+				    </div>
+			    </footer>
+		    </div> 
+	    </div>
+    </div><!--//docs-wrapper-->
+   
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    
+    
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+
+</body>
+</html> 
+

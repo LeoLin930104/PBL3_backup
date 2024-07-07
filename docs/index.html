@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>PBL3 - Group C</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bootstrap Documentation Template For Software Developers">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+</head> 
+
+<body>    
+    <header class="header fixed-top">	 
+	       
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+	                <div class="site-logo"><a class="navbar-brand" href="index.html"><img width="30px" class="logo-icon me-2" src="assets/images/torii-gate.svg" alt="logo"><span class="logo-text">Shrine<span class="text-alt">Seeker</span></span></a></div>    
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+	
+					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+		            </ul><!--//social-list-->
+		            <a href="https://github.com/LeoLin930104/PBL3" class="btn btn-primary d-none d-lg-flex">Github</a>
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    
+    
+    <div class="page-header theme-bg-dark py-5 text-center position-relative">
+	    <div class="theme-bg-shapes-right"></div>
+	    <div class="theme-bg-shapes-left"></div>
+	    <div class="container">
+		    <h1 class="page-heading single-col-max mx-auto">Shrines & Temple Crowdedness</h1>
+		    <div class="page-intro single-col-max mx-auto">This site holds all of the documentation produced by Group C from PBL3 2024.</div>
+		    <div class="main-search-box pt-3 d-block mx-auto">
+				<form class="search-form w-100" onsubmit="return false" style = "display: none">
+					<input id = 'searchText' type="text" placeholder="Search the docs..." name="search" class="form-control search-input" onkeydown="handleKeyPress(event)">
+					<button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+					<script>
+						// Function to handle key press event and trigger search on Enter key
+						function handleKeyPress(event) { 
+							var keyCode = event.keyCode || event.which;
+							var validKeyCodes = [8, 13]; // Backspace (8) and Enter (13)
+							
+							// Check if the key pressed is a character or a valid key
+							if ((keyCode >= 65 && keyCode <= 90) || validKeyCodes.includes(keyCode)) {
+								var currentSearchText = document.getElementById('searchText').value.trim();
+								var keyPressed = event.key;
+				
+								// Handle Backspace key press
+								if (keyCode === 8) {
+									// Remove the last character from the search text
+									if(currentSearchText == ''){
+										
+									} else {
+										currentSearchText = currentSearchText.slice(0, -1);
+									}
+								} else if (keyCode === 13) {
+									// If Enter is pressed, trigger search
+									searchText();
+									return;
+								} else {
+									// Append the pressed key to the current search text
+									currentSearchText += keyPressed;
+								}
+				
+								// Trigger the search
+								searchText(currentSearchText.toLowerCase());
+							}
+						}
+				
+						// Function to search for text within the website content and display search results
+						function searchText(text) {
+							var searchText = text
+							console.log(searchText)
+							var resultsContainer = document.getElementById('resultContainer');
+							resultsContainer.innerHTML = ''; // Clear previous search results
+							console.log(searchText);
+							if (searchText === '') {
+								document.getElementById('content').style.display = '';
+								document.getElementById('resultContainer').style.display = 'none';
+								return; // Do nothing if search text is empty
+							}
+							var searchableElements = document.querySelectorAll('.col-12'); // Add more elements as needed
+
+							var resultsFound = false;
+						
+							// Iterate over each searchable element
+							searchableElements.forEach(function(element) {
+							var content = element.textContent.trim().toLowerCase(); // Get the text content of the element
+						
+								// Check if the element's content contains the desired text
+								if (content.includes(searchText)) {
+									// Clone the parent element and its content
+									var ElementClone = element.cloneNode(true);
+									
+									// Remove any existing ID to avoid duplication
+									ElementClone.removeAttribute('id');
+									var regex = new RegExp(searchText, 'gi');
+									ElementClone.innerHTML = ElementClone.textContent.replace(regex, '<span style = "background-color: yellow;">$&</span>');
+									
+									
+									// Append the cloned parent element to the results container
+									resultsContainer.appendChild(ElementClone);
+									resultsFound = true;
+								}
+							});
+						
+							// If no results found, display a message
+							if (!resultsFound) {
+								var noResultsElement = document.createElement('p');
+								noResultsElement.textContent = 'No results found.';
+								resultsContainer.appendChild(noResultsElement);
+							}
+
+							document.getElementById('content').style.display = 'none';
+							document.getElementById('resultContainer').style.display = '';
+
+						}
+					</script>
+				</form>
+             </div>
+	    </div>
+    </div><!--//page-header-->
+   <div class="page-content">
+	    <div class="container">
+		    <div class="docs-overview py-5">
+				<div class = "row justify-content-center" id = "resultContainer" style = "display: none;">
+					<p>iuygf</p>
+				</div>
+			    <div class="row justify-content-center" id = "content">
+				    <div class="col-12 col-lg-4 py-3">
+					    <div class="card shadow-sm">
+						    <div class="card-body">
+							    <h5 class="card-title mb-3">
+								    <span class="theme-icon-holder card-icon-holder me-2">
+								        <i class="fas fa-book-reader"></i>
+							        </span><!--//card-icon-holder-->
+							        <span class="card-title-text">General Information</span>
+							    </h5>
+							    <div class="card-text">
+								    You can learn about the general idea that our group developed, how is it going to contribute to a city, and how we are going to achieve it.
+								</div>
+							    <a class="card-link-mask" href="reference.html#section-1"></a>
+						    </div><!--//card-body-->
+					    </div><!--//card-->
+				    </div><!--//col-->
+				    <div class="col-12 col-lg-4 py-3">
+					    <div class="card shadow-sm">
+						    <div class="card-body">
+							    <h5 class="card-title mb-3">
+								    <span class="theme-icon-holder card-icon-holder me-2">
+								        <i class="fas fa-file"></i>
+							        </span><!--//card-icon-holder-->
+							        <span class="card-title-text">Project Proposal</span>
+							    </h5>
+							    <div class="card-text">
+									You can learn in details about our project. What we are doing, why we are doing it, how we are going to do it. 
+								</div>
+							    <a class="card-link-mask" href="project_proposal.html"></a>
+						    </div><!--//card-body-->
+					    </div><!--//card-->
+				    </div><!--//col-->
+				    <div class="col-12 col-lg-4 py-3">
+					    <div class="card shadow-sm">
+						    <div class="card-body">
+							    <h5 class="card-title mb-3">
+								    <span class="theme-icon-holder card-icon-holder me-2">
+								        <i class="fas fa-book fa-fw"></i>
+							        </span><!--//card-icon-holder-->
+							        <span class="card-title-text">Reviews</span>
+							    </h5>
+							    <div class="card-text">
+								    This section include all the papers and apps that we have reviewed. The review are references that we used to refine our project. We use the papers to validate our ideas. We use similar app as inspirations.
+								</div>
+							    <a class="card-link-mask" href="reviews.html"></a>
+						    </div><!--//card-body-->
+					    </div><!--//card-->
+				    </div><!--//col-->
+				    <div class="col-12 col-lg-4 py-3">
+					    <div class="card shadow-sm">
+						    <div class="card-body">
+							    <h5 class="card-title mb-3">
+								    <span class="theme-icon-holder card-icon-holder me-2">
+								        <i class="fas fa-people-robbery fa-fw"></i>
+							        </span><!--//card-icon-holder-->
+							        <span class="card-title-text">Weekly Meetings</span>
+							    </h5>
+							    <div class="card-text">
+								    The team gather together weekly, here is the documentation for what we do each week and what we have discussed during the meetings.
+								</div>
+							    <a class="card-link-mask" href="weekly_meetings.html"></a>
+						    </div><!--//card-body-->
+					    </div><!--//card-->
+				    </div><!--//col-->
+				    <div class="col-12 col-lg-4 py-3">
+					    <div class="card shadow-sm">
+						    <div class="card-body">
+							    <h5 class="card-title mb-3">
+								    <span class="theme-icon-holder card-icon-holder me-2">
+								        <i class="fas fa-clipboard-list"></i>
+							        </span><!--//card-icon-holder-->
+							        <span class="card-title-text">Requirements</span>
+							    </h5>
+							    <div class="card-text">The Software Requirement Specification document is documented here. You can learn about all the user requirement, system requirement, and basic system structure here.</div>
+							    <a class="card-link-mask" href="requirement_1.1.html"></a>
+						    </div><!--//card-body-->
+					    </div><!--//card-->
+				    </div><!--//col-->
+				    <div class="col-12 col-lg-4 py-3">
+					    <div class="card shadow-sm">
+						    <div class="card-body">
+							    <h5 class="card-title mb-3">
+								    <span class="theme-icon-holder card-icon-holder me-2">
+								        <i class="fas fa-display"></i>
+							        </span><!--//card-icon-holder-->
+							        <span class="card-title-text">Mid-term Presentation</span>
+							    </h5>
+							    <div class="card-text">
+									Here is the slides being showed during the mid-term presentation on week 7. 
+								</div>
+							    <a class="card-link-mask" href="midterm_slides.html"></a>
+						    </div><!--//card-body-->
+					    </div><!--//card-->
+				    </div><!--//col-->
+				    <div class="col-12 col-lg-4 py-3">
+					    <div class="card shadow-sm">
+						    <div class="card-body">
+							    <h5 class="card-title mb-3">
+								    <span class="theme-icon-holder card-icon-holder me-2">
+								        <i class="fas fa-diagram-predecessor"></i>
+							        </span><!--//card-icon-holder-->
+							        <span class="card-title-text">System Design Diagrams</span>
+							    </h5>
+							    <div class="card-text">
+									Here are all the Diagrams specifiying the structural design of the application.
+								</div>
+							    <a class="card-link-mask" href="system_design_diagrams.html"></a>
+						    </div><!--//card-body-->
+					    </div><!--//card-->
+				    </div><!--//col-->
+				    <div class="col-12 col-lg-4 py-3">
+					    <div class="card shadow-sm">
+						    <div class="card-body">
+							    <h5 class="card-title mb-3">
+								    <span class="theme-icon-holder card-icon-holder me-2">
+								        <i class="fas fa-project-diagram"></i>
+							        </span><!--//card-icon-holder-->
+							        <span class="card-title-text">Architecture Documentation</span>
+							    </h5>
+							    <div class="card-text">
+									Here is the documentation for System Architecture 
+								</div>
+							    <a class="card-link-mask" href="system_architecture_documentation_1.0.html"></a>
+						    </div><!--//card-body-->
+					    </div><!--//card-->
+				    </div><!--//col-->
+				    <div class="col-12 col-lg-4 py-3">
+					    <div class="card shadow-sm">
+						    <div class="card-body">
+							    <h5 class="card-title mb-3">
+								    <span class="theme-icon-holder card-icon-holder me-2">
+								        <i class="fas fa-people-group"></i>
+							        </span><!--//card-icon-holder-->
+							        <span class="card-title-text">The Team</span>
+							    </h5>
+							    <div class="card-text">
+								    Here are the team members. You can find the work distribution among our team, also some juicy information about the team members.</div>
+							    <a class="card-link-mask" href="team.html"></a>
+						    </div><!--//card-body-->
+					    </div><!--//card-->
+				    </div><!--//col-->
+			    </div><!--//row-->
+		    </div><!--//container-->
+		</div><!--//container-->
+    </div><!--//page-content-->
+
+    <section class="cta-section text-center py-5 theme-bg-dark position-relative">
+	    <div class="theme-bg-shapes-right"></div>
+	    <div class="theme-bg-shapes-left"></div>
+	    <div class="container">
+		    <h3 class="mb-2 text-white mb-3">Have you tried the Search function?</h3>
+		    <div class="section-intro text-white mb-3 single-col-max mx-auto">I spent a lot of time on that feature, I would appreciate it if you try it out.</div>
+			<div class="section-intro text-white mb-3 single-col-max mx-auto">Btw, another button to our github.</div>
+		    <div class="pt-3 text-center">
+			    <a class="btn btn-light" href="https://github.com/LeoLin930104/PBL3">Github <i class="fas fa-arrow-alt-circle-right ml-2"></i></a>
+		    </div>
+	    </div>
+    </section><!--//cta-section-->
+
+    <footer class="footer">
+
+	    <div class="footer-bottom text-center py-5">
+		    
+		    <ul class="social-list list-unstyled pb-4 mb-0">
+	        </ul><!--//social-list-->
+	        
+	        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link" href="http://github.com/LeoLin930104" target="_blank">Leo Lin</a> for Group C</small>
+            
+	        
+	    </div>
+	    
+    </footer>
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+
+</body>
+</html> 
+

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>ShrineSeeker - Reviews</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Bootstrap 4 Template For Software Startups">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css">
+
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+</head> 
+
+<body class="docs-page">    
+    <header class="header fixed-top">	    
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+					<button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+	                    <span></span>
+	                    <span></span>
+	                    <span></span>
+	                </button>
+	                <div class="site-logo"><a class="navbar-brand" href="index.html"><img width="30px" class="logo-icon me-2" src="assets/images/torii-gate.svg" alt="logo"><span class="logo-text">Shrine<span class="text-alt">Seeker</span></span></a></div>    
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+	                <div class="top-search-box d-none d-lg-flex">
+		                <form class="search-form" onsubmit="return false;">
+				            <input id = 'searchText' type="text" placeholder="Search the docs..." name="search" class="form-control search-input" onkeydown="handleKeyPress(event)">
+				            <button type="submit" class="btn search-btn" value="Search" onclick="handleButtonPress()"><i class="fas fa-search"></i></button>
+							<script>
+								function handleButtonPress(){
+									var currentSearchText = document.getElementById('searchText').value.trim();
+									searchText(currentSearchText.toLowerCase());
+								}
+								// Function to handle key press event and trigger search on Enter key
+								function handleKeyPress(event) { 
+									var keyCode = event.keyCode || event.which;
+									var validKeyCodes = [8, 13]; // Backspace (8) and Enter (13)
+									
+									// Check if the key pressed is a character or a valid key
+									if ((keyCode >= 65 && keyCode <= 90) || validKeyCodes.includes(keyCode)) {
+										var currentSearchText = document.getElementById('searchText').value.trim();
+										var keyPressed = event.key;
+						
+										// Handle Backspace key press
+										if (keyCode === 8) {
+											// Remove the last character from the search text
+											if(currentSearchText == ''){
+												
+											} else {
+												currentSearchText = currentSearchText.slice(0, -1);
+											}
+										} else if (keyCode === 13) {
+											// If Enter is pressed, trigger search
+											searchText();
+											return;
+										} else {
+											// Append the pressed key to the current search text
+											currentSearchText += keyPressed;
+										}
+						
+										// Trigger the search
+										searchText(currentSearchText.toLowerCase());
+									}
+								}
+						
+								// Function to search for text within the website content and display search results
+								function searchText(text) {
+									var searchText = text
+									console.log(searchText)
+									var resultsContainer = document.getElementById('searchResults');
+									resultsContainer.innerHTML = ''; // Clear previous search results
+									console.log(searchText);
+									if (searchText === '') {
+										document.getElementById('content').style.display = '';
+										document.getElementById('resultContainer').style.display = 'none';
+										return; // Do nothing if search text is empty
+									}
+									var searchableElements = document.querySelectorAll('section'); // Add more elements as needed
+
+									var resultsFound = false;
+								
+									// Iterate over each searchable element
+									searchableElements.forEach(function(element) {
+									var content = element.textContent.trim().toLowerCase(); // Get the text content of the element
+								
+										// Check if the element's content contains the desired text
+										if (content.includes(searchText)) {
+											// Clone the parent element and its content
+											var ElementClone = element.cloneNode(true);
+											
+											// Remove any existing ID to avoid duplication
+											ElementClone.removeAttribute('id');
+											var regex = new RegExp(searchText, 'gi');
+											ElementClone.innerHTML = ElementClone.textContent.replace(regex, '<span style = "background-color: yellow;">$&</span>');
+											
+											
+											// Append the cloned parent element to the results container
+											resultsContainer.appendChild(ElementClone);
+											resultsFound = true;
+										}
+									});
+								
+									// If no results found, display a message
+									if (!resultsFound) {
+										var noResultsElement = document.createElement('p');
+										noResultsElement.textContent = 'No results found.';
+										resultsContainer.appendChild(noResultsElement);
+									}
+
+									document.getElementById('content').style.display = 'none';
+									document.getElementById('resultContainer').style.display = '';
+
+								}
+							</script>
+				        </form>
+	                </div>
+	
+					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+		            </ul><!--//social-list-->
+		            <a href="https://github.com/LeoLin930104/PBL3" class="btn btn-primary d-none d-lg-flex">Github</a>
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    
+    
+    <div class="docs-wrapper">
+	    <div id="docs-sidebar" class="docs-sidebar">
+		    <div class="top-search-box d-lg-none p-3">
+                <form class="search-form">
+		            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+		            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+		        </form>
+            </div>
+		    <nav id="docs-nav" class="docs-nav navbar">
+			    <ul class="section-items list-unstyled nav flex-column pb-3">
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-book"></i></span>Literature Reviews</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Design patterns for user interface for mobile applications</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">Content-Based Recommendation Systems</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3">Evaluating Recommendation Systems</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-4">Algorithmic Approach to Optimal Route Planning</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-2"><span class="theme-icon-holder me-2"><i class="fas fa-book"></i></span>App Reviews</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-1">BestTime API</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-2">御朱印帳 No.1 15万件超の神社・お寺がいいね</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-3">Hot pepper gourmet, ホットペッパーグル</a></li>
+			    </ul>
+
+		    </nav><!--//docs-nav-->
+	    </div><!--//docs-sidebar-->
+	    <div class="docs-content">
+			<div class = "container" id = "resultContainer" style = "display: none;">
+				<article class = "docs-article">
+					<header class="docs-header">
+						<h1 class="docs-heading">Search Results</h1>
+					</header>
+					<section id = "searchResults"></section>
+				</article>
+			</div>
+		    <div class="container" id = "content">
+			    <article class="docs-article" id="section-1">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Literature Reviews</h1>
+					    <section class="docs-intro"></section><!--//docs-intro-->
+				    </header>
+					<br>
+				    <section class="docs-section" id="item-1-1">
+						<h2 class="section-heading">Design patterns for user interface for mobile applications</h2>
+						<br>
+						<div style="text-align: right"> Myat Ma De May Phuu Ngon</div>
+						<div style="text-align: right"> 26002304901</div>
+						<div style="text-align: right"> April 19th 2024</div>
+						<br>
+						<div style="text-align: justify"> This paper is a collection of user interface (UI) design patterns for mobile applications which could help in designing the UI for our application. It outlines the structure of the collection, grouping patterns into three main problem areas with two specific problems from each area.This is helpful for identifying patterns and a thorough overview of UI design issues for mobile apps. The three main problem areas are utilizing screen space, interaction mechanisms, and design at large. 
+							Regarding utilizing screen space, horizontal scrolling is said to be one problem as part of screen space in general. Horizontal scrolling is worse than vertical scrolling as the users lose more context when scrolling horizontally. Here, changing the layout which is to increase more vertical scrolling is one solution to this problem. However, I doubt we will be having any horizontal scrolling for selecting elements in our app. Another problem in the same field is handling crowded dialogs when the software keyboard is shown and hidden. This results in less room for normal interaction and how to resize is a consequence. To avoid this, dynamic resizing by either deciding a resizing rule for each window and applying that as tailored code for each window or having a general layout adjustment algorithm doing it for all windows can be used. This point is lightly noted as we need user input for a shrine name in our app and when we have an issue with keyboard display, we can use this method.<div>
+						<br>
+						<div style="text-align: justify"> Regarding interaction mechanisms, mechanisms for entering text is a problem especially for personal digital assistants with very small keyboards and the solution is to have an auto-complete suggestion text. However, this is not an issue in our app. One important thing to note is that we should include a spinner or buttons for time display in choosing a specific period in our app and check boxes for filtering categories. Another problem in the same field is interacting with applications without using a stylus which again is not really related to our app. One good thing to note here with its respective solution is that we should not make tab buttons too small and more finger-friendly buttons.<div>
+						<br>
+						<div style="text-align: justify"> Regarding design at large, one main problem is the design that supports branding, is aesthetic, and utilizes screen space optimally. If the branding includes a graphical profile, the UI controls will look different from platform standard. This may cause usability issues, being added for aesthetic reasons may decrease the affordance of the control and take up space. One solution is to include the company logo in various places of the UI and use colors and other visual elements from the graphical profile of the company in UI controls and backgrounds. For our app, this point is essential as we also need branding. The last problem in the same field is user interaction during waiting for long-lasting operations to complete and will probably make mobile users impatient. Few solutions that could be useful to our app are providing a wait cursor with a message saying “please wait…”, or to inform the user that something is happening, and indicate progress with a counter and/or a slider/gauge that shows the percentage of time spent.
+						By taking notes of the UI design problems and solutions in this paper, we will be able to make an app that is efficiently working and aesthetic with our own brand which will later be appealing to our users.<div>
+						<br>
+						<h4>Reference</h4>
+						<div style="text-align: left"> Design patterns for user interface for mobile applications, Nilsson, E. G. (2009). Design patterns for user interface for mobile applications. Advances in engineering software, 40(12), 1318-1328.</div>
+					</section><!--//section-->
+					
+					<section class="docs-section" id="item-1-2">
+						<h2 class="section-heading">Content-Based Recommendation Systems</h2>
+						<br>
+						<div style="text-align: right"> Joseph Eugene Pelc</div>
+						<div style="text-align: right"> 26002303549</div>
+						<div style="text-align: right"> April 18th 2024</div>
+						<br>
+						<div style="text-align: justify"> This system introduces the basic concepts of content-based recommendation systems, which basically give users recommendations based on their interests and the types of attributes they are looking for specifically. The current adaptation of these systems is included in fields such as television programs, items for sale, restaurants, news articles, and, most importantly, web pages. The reason why web pages are particularly important in this case is because our project will tie into information taken from the web. Hence, the content-based recommendation system strongly correlates with the field of our project. The content-based recommendation system works by each item having an attribute, or even multiple, designated to itself while being stored in a database. These attributes are what make the system able to recommend certain things to users since this is the information that it will mainly be using when making decisions. For example, in our case, we will be recommending the closest shrines or temples to users, and by incorporating this content-based recommendation system in our project, we can make destination recommendations based on the information that the user provides to the system allowing them to be recommended the best shrine/ temple to visit. In addition, this paper also mentions user-profiles and how the user’s interaction history with the system can help build the algorithm and make better recommendations. If we bring it back to our project, if the user prefers to visit shrines closest to them, then the system will use its past interactions to make a better recommendation to the user.<div>
+						<br>
+						<h4>Reference</h4>
+						<div style="text-align: left"> M. J. Pazzani and D. Billsus, "Content-Based Recommendation Systems," in The Adaptive Web, P. Brusilovsky, A. Kobsa, and W. Nejdl, Eds. Berlin Heidelberg: Springer-Verlag, 2007, pp. 325-341. doi: 10.1007/978-3-540-72079-9_10</div>
+					</section><!--//section-->
+
+					<section class="docs-section" id="item-1-3">
+						<h2 class="section-heading">Evaluating Recommendation Systems</h2>
+						<div style="text-align: right"> Lin Chung-Hsi</div>
+						<div style="text-align: right"> 26002304790</div>
+						<div style="text-align: right"> April 17th 2024</div><br>
+						<div style="text-align: justify"> This paper, as the title suggests, focuses on evaluating recommendation systems. The reason I have choose to read this paper is that the core of our project involves a recommendation system. Since we are developing such systems, we have to be able to understand how to evaluate its effectiveness.  <div>
+						<br>
+						<div style="text-align: justify">The paper have suggested several methods to experiment on a recommendation system's accuracy. Though there are several of methodology suggested, most of them is bot applicable for our development process. The one that is feasible for us are online experiments.<div>
+						<br>
+						<div style="text-align: justify"> An online experiment is defined as experiments tested by real users. In simple word, having real users rate the recommendation they received from different recommendation systems. With in the development phase, there is a validation process. Through reading this paper, I believe our team should develop multiple recommendation systems, and implement similar experiments to compare various systems. However, this is optimictic about time constaint for this project. We can still evaluate a single recommendation system if we could only develop one, but preferably multiple systems.<div>
+						<br>
+						<h4>Reference</h4>
+						<div style="text-align: left"> Shani, Guy, and Asela Gunawardana. "Evaluating recommendation systems." Recommender systems handbook (2011): 257-297. <div>
+
+					</section><!--//section-->
+
+					<section class="docs-section" id="item-1-4">
+						<h2 class="section-heading">Algorithmic Approach to Optimal Route Planning</h2>
+						<div style="text-align: right"> Lin Chung-Hsi</div>
+						<div style="text-align: right"> 26002304790</div>
+						<div style="text-align: right"> April 18th 2024</div>
+						<br>
+						<div style="text-align: justify"> This paper is math heavy and very hard to understand fully. But thoughout section about the application this paper refers to. I think it is worth noting the similarity of our projec to the topic this paper dicusses.  <div>
+						<br>
+						<div style="text-align: justify">Our project involves recommending a route for the users. With a notion of providing a confortable experience for the user. Even though this confortness is highlighted with crowdedness, travel time is also an important aspect. For example, if ther are only non-crowded shrine on the edge of the city, the system shouldn't recommend the user to visit shrines al the way at the other side of the city, which is inappropriate. The paper presented various way to quantify a route and compare differnet route with these quantities. <div>
+						<br>
+						<div style="text-align: justify"> Although I cannot understand fully about the technicalities presented here in this paper, I understand the importance of route planning to our project. And the paper suggested that therer are algorithmic approach this problem.<div>
+						<br>
+						<h4>Reference</h4>
+						<div style="text-align: left"> Mitchell, J. S. (1991, March). Algorithmic approaches to optimal route planning. In Mobile Robots V (Vol. 1388, pp. 248-259). SPIE. <div>
+
+					</section><!--//section-->
+
+			    <article class="docs-article" id="section-2">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">App Reviews</h1>
+					    <section class="docs-intro">
+						    <p>Section intro goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque finibus condimentum nisl id vulputate. Praesent aliquet varius eros interdum suscipit. Donec eu purus sed nibh convallis bibendum quis vitae turpis. Duis vestibulum diam lorem, vitae dapibus nibh facilisis a. Fusce in malesuada odio.</p>
+						</section><!--//docs-intro-->
+				    </header>
+					<section class="docs-section" id="item-2-1">
+						<h2 class="section-heading">BestTime API</h2>
+						<div style="text-align: right"> Myat Ma De May Phuu Ngon</div>
+						<div style="text-align: right"> 26002304901</div>
+						<div style="text-align: right"> April 21st 2024</div>
+						<br>
+						<div style="text-align: justify"> I have looked into an API called Best Time. It is a powerful API where finding desired venues by analyzing foot traffic is available, forecasting data of venues, with search filters. In addition, it also includes documentation on its API reference.</div>
+						<br>
+						<div style="text-align: justify"> Firstly, it has a free test account and a demo account. The demo allows the user to use some of the features including the search function of tourist attractions, bars, nightclubs, restaurants, cafes and shopping, filters of how busy it is and on what days, time of day, sorting by popularity, rating and time. It has a wide database as it allows the users to find any place in the world so we can use it for our app which is only limited to Kyoto, Japan for the shrines. However, we cannot use the live data function and the number of results is limited. In the free account, we can use the demo functions plus with some more numbers of results but it is still limited. It features hourly data, and the crowded areas are shown in different colors. It incorporates a map where users can interact to see more details on one specific venue with exact location of longitude and latitude and ‘nearby my location’ can also be used. Each venue has its address, ratings, type of the place, opening and closing hours. Users can filter the venues with ratings, review, and price from minimum to maximum. </div>
+						<br>
+						<div style="text-align: justify"> There are two packages to buy to upgrade the foot data limitations and venue searches with respective prices at $99 and $399 per month. I suggest that we buy the latter package if we want to use the API to the full potential. </div>
+						<br>
+						<h4>Reference</h4>
+						<div style="text-align: justify"> Link: https://besttime.app</div>
+					</section><!--//section-->
+
+					<section class="docs-section" id="item-2-2">
+						<h2 class="section-heading">御朱印帳 No.1 15万件超の神社・お寺がいいね</h2>
+						<div style="text-align: right"> Hama Yuina</div>
+						<div style="text-align: right"> 26002303174</div>
+						<div style="text-align: right"> April 19th 2024</div>
+						<br>
+						<div style="text-align: justify">
+							<p>Pros</p>
+							<ul>
+								<li>You can see the information of the temple.</li>
+								<li>User can score and comment.</li>
+								<li>You can get stamps if you go to the shrine/temple.</li>
+							</ul>
+						</div>
+						
+						<div style="text-align: justify">
+							<p>Cons</p>
+							<ul>
+								<li>There are no real time crowdedness data in the app.</li>
+								<li>It just shows the near place, we can add the root recommend function.</li>
+							</ul>
+						</div>
+						
+						<br>
+						<h2>Reference</h2>
+						<div style="text-align: justify"> Link: https://www.hotpepper.jp/  (web version)</div>
+					</section><!--//section-->
+
+					<section class="docs-section" id="item-2-3">
+						<h2 class="section-heading">Hot pepper gourmet, ホットペッパーグル</h2>
+						<div style="text-align: right"> Sakai Tomoki</div>
+						<div style="text-align: right"> 26002301848</div>
+						<div style="text-align: right"> April 19th 2024</div>
+						<br>
+						<div style="text-align: justify">
+							<p>Main Idea</p>
+							<ul>
+								<li>Making reservations on the Internet without making calls</li>
+								<li>Look for restaurants depending on your circumstance</li>
+								<li>Can use coupon</li>
+								<li>Can search for places depending on situation (友人、デート、宴会、接待）</li>
+								<li>Can choose places too (station, area)</li>
+							</ul>
+						</div>
+						
+						
+						<div style="text-align: justify">
+							<p>Pros</p>
+							<ul>
+								<li>Can narrow down restaurants with dates, prices, and even ways of paying</li>
+								<li>Can set where you go usually and recommends</li>
+								<li>Uses location information</li>
+								<li>Clear pictures</li>
+							</ul>
+						</div>
+						
+						<div style="text-align: justify">
+							<p>Cons</p>
+							<ul>
+								<li>Promotions are disturbing</li>
+								<li>Initial settings are broad (just 2 questions)</li>
+								<li>Recommendations on the main page just show based on the place</li>
+								<li>User has to choose many items to narrow down their choice. (Too many sections to choose)</li>
+								<li>Promoted shops come on top </li>
+							</ul>
+						</div>
+						<br>
+						<h2>Reference</h2>
+						<div style="text-align: justify"> Link: https://apps.apple.com/jp/app/御朱印帳-no-1-15万件超の神社-お寺がいいね/id1480639171</div>
+					
+					</section><!--//section-->
+			    </article><!--//docs-article-->
+
+			    <footer class="footer">
+				    <div class="container text-center py-5">
+				        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+			            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link" href="http://github.com/LeoLin930104" target="_blank">Leo Lin</a> for Group C</small>
+				        <ul class="social-list list-unstyled pt-4 mb-0">
+				        </ul><!--//social-list-->
+				    </div>
+			    </footer>
+		    </div> 
+	    </div>
+    </div><!--//docs-wrapper-->
+   
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    
+    
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+
+</body>
+</html> 
+

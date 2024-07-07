@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>ShrineSeeker</title>
+  {% load static %}
+  <link rel="stylesheet" href={% static 'styles.css' %}>
+  {% static 'styles.css' %}
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>ShrineSeeker - Map</h1>
+    </header>
+    <div class="header">
+      <nav>
+        <a href="explore">Explore</a>
+        <a href="map">Map</a>
+        <a href="user">My Page</a>
+      </nav>
+    </div>
+  </div>
+  <main>
+    <div class="controls">
+      <button onclick="recommendRoutes()">Recommend Me Routes!</button>
+    </div>
+    {{m | safe}}
+  </main>
+
+  <script src="scripts.js"></script>
+</body>
+
+</html>

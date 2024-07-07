@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>404</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bootstrap Documentation Template For Software Developers">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+</head> 
+
+<body>    
+    <header class="header fixed-top">	 
+	       
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+	                <div class="site-logo"><a class="navbar-brand" href="index.html"><img width="30px" class="logo-icon me-2" src="assets/images/torii-gate.svg" alt="logo"><span class="logo-text">Shrine<span class="text-alt">Seeker</span></span></a></div>    
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+	
+					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+		            </ul><!--//social-list-->
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    
+    
+    <div class="page-header theme-bg-dark py-5 text-center position-relative">
+	    <div class="theme-bg-shapes-right"></div>
+	    <div class="theme-bg-shapes-left"></div>
+	    <div class="container">
+		    <h1 class="page-heading single-col-max mx-auto">404</h1>
+		    <div class="page-intro single-col-max mx-auto">Wrong place man, wrong place. Nothing here.</div>
+		    <div class="main-search-box pt-3 d-block mx-auto">
+				<form class="search-form w-100" onsubmit="return false" style = "display: none">
+					<input id = 'searchText' type="text" placeholder="Search the docs..." name="search" class="form-control search-input" onkeydown="handleKeyPress(event)">
+					<button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+					<script>
+						// Function to handle key press event and trigger search on Enter key
+						function handleKeyPress(event) { 
+							var keyCode = event.keyCode || event.which;
+							var validKeyCodes = [8, 13]; // Backspace (8) and Enter (13)
+							
+							// Check if the key pressed is a character or a valid key
+							if ((keyCode >= 65 && keyCode <= 90) || validKeyCodes.includes(keyCode)) {
+								var currentSearchText = document.getElementById('searchText').value.trim();
+								var keyPressed = event.key;
+				
+								// Handle Backspace key press
+								if (keyCode === 8) {
+									// Remove the last character from the search text
+									if(currentSearchText == ''){
+										
+									} else {
+										currentSearchText = currentSearchText.slice(0, -1);
+									}
+								} else if (keyCode === 13) {
+									// If Enter is pressed, trigger search
+									searchText();
+									return;
+								} else {
+									// Append the pressed key to the current search text
+									currentSearchText += keyPressed;
+								}
+				
+								// Trigger the search
+								searchText(currentSearchText.toLowerCase());
+							}
+						}
+				
+						// Function to search for text within the website content and display search results
+						function searchText(text) {
+							var searchText = text
+							console.log(searchText)
+							var resultsContainer = document.getElementById('resultContainer');
+							resultsContainer.innerHTML = ''; // Clear previous search results
+							console.log(searchText);
+							if (searchText === '') {
+								document.getElementById('content').style.display = '';
+								document.getElementById('resultContainer').style.display = 'none';
+								return; // Do nothing if search text is empty
+							}
+							var searchableElements = document.querySelectorAll('.col-12'); // Add more elements as needed
+
+							var resultsFound = false;
+						
+							// Iterate over each searchable element
+							searchableElements.forEach(function(element) {
+							var content = element.textContent.trim().toLowerCase(); // Get the text content of the element
+						
+								// Check if the element's content contains the desired text
+								if (content.includes(searchText)) {
+									// Clone the parent element and its content
+									var ElementClone = element.cloneNode(true);
+									
+									// Remove any existing ID to avoid duplication
+									ElementClone.removeAttribute('id');
+									var regex = new RegExp(searchText, 'gi');
+									ElementClone.innerHTML = ElementClone.textContent.replace(regex, '<span style = "background-color: yellow;">$&</span>');
+									
+									
+									// Append the cloned parent element to the results container
+									resultsContainer.appendChild(ElementClone);
+									resultsFound = true;
+								}
+							});
+						
+							// If no results found, display a message
+							if (!resultsFound) {
+								var noResultsElement = document.createElement('p');
+								noResultsElement.textContent = 'No results found.';
+								resultsContainer.appendChild(noResultsElement);
+							}
+
+							document.getElementById('content').style.display = 'none';
+							document.getElementById('resultContainer').style.display = '';
+
+						}
+					</script>
+				</form>
+             </div>
+	    </div>
+    </div><!--//page-header-->
+
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+
+</body>
+</html> 
+
